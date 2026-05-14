@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pra Você 🐥🍟</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink-deep: #d6336c;
+    --pink-mid: #f06595;
+    --pink-light: #fcc2d7;
+    --pink-pale: #fff0f6;
+    --pink-blush: #ffe3ee;
+    --yellow: #ffe066;
+    --yellow-dark: #f59f00;
+    --cream: #fff9db;
+    --white: #ffffff;
+    --text-dark: #5c0e2a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: var(--pink-pale);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ── GRAIN OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.5;
+  }
+
+  /* ── FLOATING EMOJIS ── */
+  .floaters {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .floater {
+    position: absolute;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    animation: floatUp linear infinite;
+    opacity: 0.18;
+    user-select: none;
+  }
+  @keyframes floatUp {
+    0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    10%  { opacity: 0.18; }
+    90%  { opacity: 0.18; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 1.5rem 3rem;
+    background: radial-gradient(ellipse at 60% 30%, #fce4ec 0%, #f8bbd0 40%, #fce4ec 100%);
+  }
+
+  .hero__badge {
+    background: var(--pink-deep);
+    color: #fff;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 0.35rem 1.1rem;
+    border-radius: 99px;
+    margin-bottom: 1.6rem;
+    box-shadow: 0 2px 12px #d6336c44;
+    animation: fadeDown 0.8s ease both;
+  }
+
+  .hero__duck {
+    font-size: clamp(5rem, 22vw, 9rem);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    animation: duckBounce 2.8s ease-in-out infinite, fadeDown 0.9s ease both;
+    display: inline-block;
+    filter: drop-shadow(0 8px 24px #f0659566);
+  }
+
+  @keyframes duckBounce {
+    0%, 100% { transform: translateY(0) rotate(-3deg) scale(1); }
+    30%       { transform: translateY(-14px) rotate(4deg) scale(1.06); }
+    60%       { transform: translateY(-6px) rotate(-2deg) scale(1.02); }
+  }
+
+  .hero__title {
+    font-family: 'Pacifico', cursive;
+    font-size: clamp(2rem, 9vw, 3.6rem);
+    color: var(--pink-deep);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    animation: fadeDown 1s ease 0.15s both;
+    text-shadow: 0 2px 0 #fff, 0 4px 20px #f0659544;
+  }
+
+  .hero__sub {
+    font-size: clamp(0.95rem, 3.5vw, 1.15rem);
+    color: #b5174f;
+    max-width: 26ch;
+    line-height: 1.6;
+    margin: 0 auto 2rem;
+    font-weight: 600;
+    animation: fadeDown 1s ease 0.3s both;
+  }
+
+  .hero__cta {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--pink-deep), #e91e7a);
+    color: #fff;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.85rem 2.2rem;
+    border-radius: 99px;
+    text-decoration: none;
+    box-shadow: 0 6px 24px #d6336c55, 0 0 0 4px #fcc2d7;
+    animation: fadeDown 1s ease 0.45s both, pulse 2.5s ease 1.5s infinite;
+    transition: transform 0.2s;
+  }
+  .hero__cta:hover { transform: scale(1.05); }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 6px 24px #d6336c55, 0 0 0 4px #fcc2d7; }
+    50%       { box-shadow: 0 6px 28px #d6336c88, 0 0 0 8px #fcc2d7aa; }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── WAVE ── */
+  .wave {
+    position: relative;
+    z-index: 1;
+    margin-top: -2px;
+  }
+  .wave svg { display: block; width: 100%; }
+
+  /* ── CARDS SECTION ── */
+  .section {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem 1.25rem 3rem;
+  }
+  .section--alt {
+    background: linear-gradient(180deg, var(--pink-blush) 0%, var(--pink-pale) 100%);
+  }
+
+  .section__tag {
+    font-family: 'Pacifico', cursive;
+    font-size: clamp(1.5rem, 6vw, 2.4rem);
+    color: var(--pink-deep);
+    text-align: center;
+    margin-bottom: 1.8rem;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 22px;
+    padding: 1.6rem 1.4rem;
+    box-shadow: 0 4px 24px #f0659522, 0 1px 4px #fcc2d755;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    border: 1.5px solid #fcc2d7;
+    transition: transform 0.22s, box-shadow 0.22s;
+    animation: cardIn 0.6s ease both;
+  }
+  .card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 12px 32px #f0659533;
+  }
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .card:nth-child(2) { animation-delay: 0.1s; }
+  .card:nth-child(3) { animation-delay: 0.2s; }
+  .card:nth-child(4) { animation-delay: 0.3s; }
+
+  .card__icon {
+    font-size: 2.4rem;
+    flex-shrink: 0;
+    line-height: 1;
+    filter: drop-shadow(0 2px 4px #f0659544);
+  }
+
+  .card__body h3 {
+    font-family: 'Pacifico', cursive;
+    font-size: 1rem;
+    color: var(--pink-deep);
+    margin-bottom: 0.3rem;
+  }
+  .card__body p {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: #8a2042;
+    font-weight: 500;
+  }
+
+  /* ── LOVE NOTE ── */
+  .lovenote {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem 1.25rem 3rem;
+    text-align: center;
+  }
+
+  .lovenote__paper {
+    max-width: 480px;
+    margin: 0 auto;
+    background: var(--cream);
+    border-radius: 24px;
+    padding: 2.2rem 1.8rem;
+    box-shadow: 0 8px 40px #f0659522, 0 2px 8px #fcc2d766;
+    border: 2px dashed #fcc2d7;
+    position: relative;
+    overflow: hidden;
+  }
+  .lovenote__paper::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: repeating-linear-gradient(90deg, var(--pink-mid) 0, var(--pink-mid) 12px, transparent 12px, transparent 20px);
+  }
+
+  .lovenote__emoji { font-size: 3rem; margin-bottom: 0.8rem; display: block; }
+
+  .lovenote__text {
+    font-size: clamp(0.95rem, 3.5vw, 1.05rem);
+    line-height: 1.8;
+    color: #7a1c3c;
+    font-weight: 600;
+  }
+
+  .lovenote__sig {
+    font-family: 'Pacifico', cursive;
+    color: var(--pink-deep);
+    font-size: 1.3rem;
+    margin-top: 1.4rem;
+  }
+
+  /* ── FRIES BANNER ── */
+  .fries-banner {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(135deg, #ffe066 0%, #ffd43b 60%, #ffb84d 100%);
+    padding: 2.2rem 1.5rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  .fries-banner::before, .fries-banner::after {
+    content: '🍟';
+    position: absolute;
+    font-size: 5rem;
+    opacity: 0.12;
+  }
+  .fries-banner::before { top: -10px; left: -10px; transform: rotate(-20deg); }
+  .fries-banner::after  { bottom: -10px; right: -10px; transform: rotate(15deg); }
+
+  .fries-banner__title {
+    font-family: 'Pacifico', cursive;
+    font-size: clamp(1.4rem, 6vw, 2.2rem);
+    color: #7a4400;
+    margin-bottom: 0.5rem;
+    position: relative;
+  }
+  .fries-banner__sub {
+    font-size: 0.95rem;
+    color: #5c3300;
+    font-weight: 600;
+    position: relative;
+  }
+
+  /* ── MUSIC PLAYER ── */
+  .player {
+    position: fixed;
+    bottom: 1.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-radius: 99px;
+    padding: 0.6rem 1.2rem 0.6rem 0.8rem;
+    box-shadow: 0 8px 32px #d6336c33, 0 1px 4px #fcc2d799;
+    border: 1.5px solid #fcc2d7;
+    cursor: pointer;
+    transition: transform 0.2s;
+    max-width: calc(100vw - 2.4rem);
+  }
+  .player:hover { transform: translateX(-50%) scale(1.04); }
+
+  .player__btn {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, var(--pink-deep), #e91e7a);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 10px #d6336c44;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .player__btn:hover { transform: scale(1.1); }
+  .player__btn svg { width: 16px; height: 16px; fill: #fff; }
+
+  .player__info { overflow: hidden; }
+  .player__track {
+    font-family: 'Pacifico', cursive;
+    font-size: 0.78rem;
+    color: var(--pink-deep);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+  }
+  .player__artist {
+    font-size: 0.68rem;
+    color: #b5174f;
+    font-weight: 600;
+    opacity: 0.8;
+  }
+
+  .player__bars {
+    display: flex; align-items: flex-end; gap: 2px; height: 20px;
+    flex-shrink: 0;
+  }
+  .player__bars span {
+    width: 3px;
+    background: var(--pink-mid);
+    border-radius: 2px;
+    animation: barAnim 0.8s ease-in-out infinite alternate;
+    transform-origin: bottom;
+  }
+  .player__bars span:nth-child(1) { height: 10px; animation-delay: 0s; }
+  .player__bars span:nth-child(2) { height: 18px; animation-delay: 0.15s; }
+  .player__bars span:nth-child(3) { height: 13px; animation-delay: 0.3s; }
+  .player__bars span:nth-child(4) { height: 20px; animation-delay: 0.1s; }
+  .player__bars.paused span { animation-play-state: paused; }
+
+  @keyframes barAnim {
+    from { transform: scaleY(0.3); }
+    to   { transform: scaleY(1); }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 1.5rem 1rem 5.5rem;
+    font-size: 0.82rem;
+    color: #c06080;
+    font-weight: 600;
+  }
+  footer span { font-size: 1.1rem; }
+</style>
+</head>
+<body>
+
+<!-- Floating emojis -->
+<div class="floaters" id="floaters"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__badge">✨ Feito com muito amor ✨</div>
+  <div class="hero__duck">🐥</div>
+  <h1 class="hero__title">Pra minha<br>patinha favorita</h1>
+  <p class="hero__sub">Você ama patos e batata frita — e eu amo você mais que tudo isso junto! 🍟💕</p>
+  <a href="#mensagem" class="hero__cta">Ler minha mensagem 💌</a>
+</section>
+
+<!-- Wave -->
+<div class="wave">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z" fill="#fff0f6"/>
+  </svg>
+</div>
+
+<!-- CARDS: Coisas que amo em você -->
+<section class="section section--alt">
+  <h2 class="section__tag">🐥 Porque você é incrível</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="card__icon">🦆</div>
+      <div class="card__body">
+        <h3>Você é fofa igual a um pato</h3>
+        <p>Patos são a coisa mais adorável do mundo — e você ainda é mais adorável que eles. Isso é muita coisa!</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card__icon">🍟</div>
+      <div class="card__body">
+        <h3>Seu amor por batata frita</h3>
+        <p>Você aprecia as coisas boas da vida. Batata frita crocante e quentinha? Sim, isso é amor de verdade.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card__icon">💗</div>
+      <div class="card__body">
+        <h3>Seu jeito único de ser</h3>
+        <p>Do seu sorriso ao seu quack— digo, sua risada — cada detalhe seu é o meu lugar favorito no mundo.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card__icon">🌸</div>
+      <div class="card__body">
+        <h3>Você me faz feliz todo dia</h3>
+        <p>Nem a batata frita mais perfeita do mundo me faz tão feliz quanto a ideia de estar do seu lado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FRIES BANNER -->
+<div class="fries-banner">
+  <p class="fries-banner__title">🍟 Teoria Batata Frita 🍟</p>
+  <p class="fries-banner__sub">Se a felicidade tem cheiro, cheira a batata frita quentinha… e a você. 💛</p>
+</div>
+
+<!-- LOVE NOTE -->
+<section class="lovenote" id="mensagem">
+  <div class="lovenote__paper">
+    <span class="lovenote__emoji">💌</span>
+    <p class="lovenote__text">
+      Ei, amor.<br><br>
+      Fiz esse cantinho especial pra você porque você merece coisas bonitas —
+      assim como patos merecem lagos e batata frita merece sal.
+      <br><br>
+      Você chegou na minha vida e fez tudo ficar mais quentinho, mais dourado,
+      mais crocante por fora e macio por dentro — exatamente como a batata frita perfeita.
+      <br><br>
+      Obrigado por existir e por me deixar gostar de você tanto assim. 🐥🍟💕
+    </p>
+    <p class="lovenote__sig">Com todo meu amor 💖</p>
+  </div>
+</section>
+
+<!-- Wave bottom -->
+<div class="wave" style="transform:scaleY(-1)scaleX(-1)">
+  <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,20 C360,40 720,0 1080,20 C1260,30 1380,10 1440,20 L1440,40 L0,40 Z" fill="#fff0f6"/>
+  </svg>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  Feito com <span>💕</span> só pra você · Escuta a música e sorri 🐥
+</footer>
+
+<!-- MUSIC PLAYER -->
+<div class="player" id="player" onclick="toggleMusic()">
+  <button class="player__btn" aria-label="Play/Pause">
+    <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    <svg id="pauseIcon" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6zm8-14v14h4V5z"/></svg>
+  </button>
+  <div class="player__info">
+    <div class="player__track">Reflections</div>
+    <div class="player__artist">The Neighbourhood</div>
+  </div>
+  <div class="player__bars paused" id="bars">
+    <span></span><span></span><span></span><span></span>
+  </div>
+</div>
+
+<!-- SoundCloud iframe oculto -->
+<iframe id="sc-frame"
+  src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/theneighbourhood/reflections&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false"
+  style="position:fixed;left:-9999px;width:1px;height:1px;border:none;"
+  allow="autoplay">
+</iframe>
+<script src="https://w.soundcloud.com/player/api.js"></script>
+
+<script>
+  /* ── Floating emojis ── */
+  const symbols = ['🐥','🦆','🍟','💕','🌸','🐤','💛','✨','🌷','💗'];
+  const cont = document.getElementById('floaters');
+  for (let i = 0; i < 22; i++) {
+    const el = document.createElement('div');
+    el.className = 'floater';
+    el.textContent = symbols[i % symbols.length];
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.animationDuration = (14 + Math.random() * 18) + 's';
+    el.style.animationDelay = (Math.random() * 18) + 's';
+    el.style.fontSize = (1 + Math.random() * 1.6) + 'rem';
+    cont.appendChild(el);
+  }
+
+  /* ── SoundCloud Widget API ── */
+  let playing = false;
+  const bars   = document.getElementById('bars');
+  const playI  = document.getElementById('playIcon');
+  const pauseI = document.getElementById('pauseIcon');
+
+  const scWidget = SC.Widget(document.getElementById('sc-frame'));
+
+  scWidget.bind(SC.Widget.Events.FINISH, function() {
+    scWidget.seekTo(0);
+    scWidget.play();
+  });
+
+  function toggleMusic() {
+    if (!playing) {
+      scWidget.play();
+      playing = true;
+      bars.classList.remove('paused');
+      playI.style.display = 'none';
+      pauseI.style.display = '';
+    } else {
+      scWidget.pause();
+      playing = false;
+      bars.classList.add('paused');
+      playI.style.display = '';
+      pauseI.style.display = 'none';
+    }
+  }
+
+  /* ── Scroll reveal ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.card, .lovenote__paper').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
