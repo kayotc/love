@@ -108,3 +108,41 @@ document
       console.log(err);
     }
 });
+
+/* =========================
+   HEARTS
+========================= */
+
+const heartsContainer = document.querySelector('.hearts');
+
+function createHeart() {
+
+  const heart = document.createElement('div');
+
+  heart.classList.add('heart');
+
+  heart.innerHTML = '💖';
+
+  heart.style.left = Math.random() * 100 + 'vw';
+
+  heart.style.fontSize =
+    Math.random() * 25 + 20 + 'px';
+
+  heart.style.animationDuration =
+    Math.random() * 4 + 6 + 's';
+
+  heart.style.opacity =
+    Math.random() * 0.5 + 0.2;
+
+  heartsContainer.appendChild(heart);
+
+  setTimeout(() => {
+
+    heart.remove();
+
+  }, 10000);
+}
+
+/* cria continuamente */
+
+setInterval(createHeart, 400);
